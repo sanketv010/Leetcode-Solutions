@@ -60,10 +60,31 @@ Node* deletelast(Node* head){
     return head;
 }
 
+Node* deleteindex(Node* head, int index){
+    if(head==NULL || head->next==NULL & head->prev==NULL){
+        return NULL;
+    }
+    if(index==0){
+        return deletehead(head);
+    }
+    Node* temp = head;
+    for(int i=0; i<index; i++){
+        temp = temp->next;
+    }
+    temp->prev->next = temp->next;
+    temp->next->prev = temp->prev;
+    temp->next = NULL;
+    temp->prev = NULL;
+    delete temp;
+    return head;
+}
+
+ 
+  
 int main(){
     vector<int> v = {2,5,8,7};
     Node* head = convertArr2dll(v);
-    head = deletelast(head);    
+    head = deleteindex(head, 2);    
     Node* temp = head;
     while(temp!=NULL){
         cout<<temp->data<<" ";
